@@ -83,12 +83,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\projektiopinnot\KaMo\KaNot\jni\Camera.cpp" />
-    <ClCompile Include="..\..\..\projektiopinnot\KaMo\KaNot\jni\Debug.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="GameDemo.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="jni\Camera.cpp" />
     <ClCompile Include="jni\ContentManager.cpp" />
+    <ClCompile Include="jni\Debug.cpp" />
     <ClCompile Include="jni\DeviceManager.cpp" />
     <ClCompile Include="jni\Engine.cpp" />
     <ClCompile Include="jni\GameObject.cpp" />
@@ -108,14 +108,13 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\projektiopinnot\KaMo\KaNot\jni\Camera.h" />
-    <ClInclude Include="..\..\..\projektiopinnot\KaMo\KaNot\jni\Debug.h" />
-    <ClInclude Include="..\..\..\projektiopinnot\projektiopinnot\KaMo\KaNot\OpenGL.h" />
     <ClInclude Include="FileReader.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDemo.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="jni\Camera.h" />
     <ClInclude Include="jni\ContentManager.h" />
+    <ClInclude Include="jni\Debug.h" />
     <ClInclude Include="jni\DeviceManager.h" />
     <ClInclude Include="jni\Engine.h" />
     <ClInclude Include="jni\GameObject.h" />
@@ -131,6 +130,7 @@
     <ClInclude Include="jni\Win32toAndroid.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="OpenGL.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

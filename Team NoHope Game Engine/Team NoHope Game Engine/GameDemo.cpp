@@ -61,7 +61,7 @@ void GameDemo::Initialize()
 	player = new Quad(desiredWidth,desiredHeight, 0.0f, 64, 64);
 	player->SetProgram(Program);
 	player->SetTexture("Test.tga");
-	player->Move(100,100,0);
+	player->Move(1200,100,0);
 
 	//Obstacle for Collision
 	obstacle = new Quad(desiredWidth, desiredHeight, 0.0f, 64, 64);
@@ -74,8 +74,8 @@ void GameDemo::Movement()
 {
 
 	//hiirtä ei vielä huomioida.
-	nextX = player->GetPositionX(CurX)+dirX;
-	nextY = player->GetPositionY(CurY)+dirY;
+	nextX = player->GetPosition().x+dirX;
+	nextY = player->GetPosition().y+dirY;
 
 	//Left
 	if(Input::isKeyDown(Key::A))
@@ -156,22 +156,22 @@ void GameDemo::Movement()
 				dirY= -10;	
 			}
 	}
+
+	printf("x: %f ", player->GetPosition().x);
+	printf("x: %f \n", player->GetPosition().y);
 }
 
 void GameDemo::Collision()
 {
-	if(player->GetPositionX(CurX) == obstacle->GetPositionX(CurX))
+	if(player->GetPosition().x == obstacle->GetPosition().x || player->GetPosition().y == obstacle->GetPosition().y)
 	{
-		printf("Pelaaja X: %d ", player->GetPositionX(CurX), "Obstaakkeli X: %d ", obstacle->GetPositionX(CurX));
-		dirX=0;
-
+		for(player->GetPosition().x == obstacle->GetPosition().x;player->GetPosition().x > obstacle->GetPosition().x;nextX-- )
+		{
+		dirX = -dirX;
+		player->Move(nextX,nextY+10,0);
+		printf("gg\n");
+		}	
 	}
-
-	if(player->GetPositionY(CurY) == obstacle->GetPositionY(CurY))
-	{
-		printf("Pelaaja Y: %d ", player->GetPositionY(CurY), "Obstaakkeli Y: %d ", obstacle->GetPositionX(CurY));
-		dirY=0;
-	}
-	
-	
 }
+
+

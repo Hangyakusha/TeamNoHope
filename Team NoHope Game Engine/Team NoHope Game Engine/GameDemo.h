@@ -20,7 +20,7 @@ namespace NoHope
 
 		void Movement();
 		void Collision();
-
+		
 	private:
 
 		void Initialize();

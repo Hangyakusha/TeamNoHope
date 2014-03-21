@@ -180,18 +180,10 @@ void Quad::SetProgram(GLuint Program)
 	loc5 = glGetUniformLocation(program, "Scale");
 }
 
-float Quad::GetPositionX(float x)
+glm::vec2 Quad::GetPosition()
 {
-	/*this->x = translation[3];*/
-	return translation[3];
+	return glm::vec2(translation[3], translation[7]);
 }
-
-float Quad::GetPositionY(float y)
-{
-	/*this->y = translation[7];*/
-	return translation[7];
-}
-
 void Quad::Draw()
 {
 	

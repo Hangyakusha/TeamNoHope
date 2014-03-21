@@ -29,10 +29,7 @@ namespace NoHope
 
 		static float* projection;
 
-		float GetPositionX(float x);
-		float GetPositionY(float y);
-
-
+		glm::vec2 GetPosition();
 
 	private:
 		Quad(const Quad&);
@@ -43,7 +40,7 @@ namespace NoHope
 		float* translation;
 		float* rotation;
 		float* scale;
-
+		
 		GLuint position, uv;
 		GLint loc, loc2, loc3, loc4, loc5;
 

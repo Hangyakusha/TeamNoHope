@@ -11,6 +11,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR cmdLine, 
 */
 int main(void)
 {
-	Window * window = new Window(NULL,"Team NoHope",1280,752);
+	Window * window = new Window(NULL,"Team NoHope",1600,800);
 	return 0;
 }
