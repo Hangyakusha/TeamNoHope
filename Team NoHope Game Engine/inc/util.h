@@ -58,7 +58,7 @@ namespace NoHope
 
 		#else
 
-			//static float* loadSound(const std::string& fileName, int& size);
+			static float* loadSound(const std::string& fileName, int& size);
 
 		#endif
 

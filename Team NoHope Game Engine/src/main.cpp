@@ -4,8 +4,8 @@
 
 int main()
 {
-	NoHope::Window* window = new NoHope::Window(640, 480, "NoHope");
-	Game* game = new Game(640, 480);
+	NoHope::Window* window = new NoHope::Window(1280, 720, "NoHope");
+	Game* game = new Game(1280, 720);  //pelialueen koko t:Jesse
 	float dt = 0.0f;
 	float oldTime = 0.0f;
 	float newTime = 0.0f;
@@ -20,4 +20,6 @@ int main()
 		game->render();
 		window->pollEvents();
 	}
+
+	
 }

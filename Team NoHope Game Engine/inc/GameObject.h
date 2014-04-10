@@ -14,11 +14,21 @@ class GameObject : public SpriteEntity
 	public:
 
 			GameObject(int x, int y, int width, int height, Texture *texture, Shader *shader, b2World* world);
-			~GameObject();
+			virtual ~GameObject();
 
 			Rigidbody *rigidbody;
 
-			void update(float dt);
+			b2World *m_world;
+
+			virtual void update(float dt);
+			
+			//void init();
+
+			//Rigidbody *playerBody;
+			//Rigidbody *groundBody;
 };
+
+//m_world->SetContactListener(&myContactListenerInstance);
+//GameObject myContactListenerInstance;
 }
 #endif

@@ -15,7 +15,7 @@
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := libopenal
+LOCAL_MODULE := openal
 LOCAL_SRC_FILES := ../libs/libopenal.so
 include $(PREBUILT_SHARED_LIBRARY)
 

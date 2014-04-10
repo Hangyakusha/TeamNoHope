@@ -15,6 +15,8 @@
 #include "Mesh.h"
 //#include "Font.h"
 #include "GameObject.h"
+#include "Player.h"
+#include "Ground.h"
 
 class Game
 {
@@ -28,6 +30,8 @@ public:
 	void update(float dt);
 	void render();
 	void addSprite(int x, int y, int dirX, int dirY);
+
+	
 
 	struct Sprite
 	{
@@ -65,6 +69,7 @@ private:
 
 
 	float _timer;
+	float fpsTimer;
 	int fps;
 };
 

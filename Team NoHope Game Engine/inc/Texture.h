@@ -25,6 +25,8 @@ namespace NoHope
 		static Texture* generateBlank();
 		static Texture* blank;
 
+		Vec2 getSize() const;
+
 	private:
 
 		void init();

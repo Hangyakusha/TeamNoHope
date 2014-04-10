@@ -94,3 +94,9 @@ Texture* Texture::generateRandom(Vec2& size)
 	}
 	return new Texture(pixelData, (int)size.x, (int)size.y, 24);
 }
+		
+Vec2 Texture::getSize() const
+{
+	return Vec2(static_cast<float>(_width),static_cast<float>(_height));
+}
+
