@@ -7,6 +7,7 @@
 #include <math\Vec2.h>
 #include <Window.h>
 
+
 #define PIXELS_PER_METER 100
 
 
@@ -30,7 +31,7 @@ namespace NoHope
 
 		void SetLinearVelocity(Vec2 linearV);
 		void SetLinearImpulse(Vec2 LinearI);
-
+		
 		//void Movement(Vec2 linearVelocity, Vec2 linearImpulse);
 
 		//bool m_contacting;

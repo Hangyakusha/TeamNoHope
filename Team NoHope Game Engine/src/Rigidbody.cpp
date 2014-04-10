@@ -38,8 +38,9 @@ void Rigidbody::Init(Vec2 position, float angle, Vec2 size, bool fixedR, bool st
 
 	b2PolygonShape dynamicBox;
 
-	dynamicBox.SetAsBox(size.x/2,size.y/2);
-  
+	dynamicBox.SetAsBox((size.x/2),(size.y/2));
+	//dynamicBox.SetAsBox(size.x/2,size.y/2);
+
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.shape = &dynamicBox;
 	boxFixtureDef.density = 10;

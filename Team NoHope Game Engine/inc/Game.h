@@ -52,11 +52,7 @@ private:
 	NoHope::Mat4 _projection3D;
 	//NoHope::Sound* _sound;
 	//NoHope::Sound* _sound2;
-	NoHope::Mesh* _cube;
-	NoHope::Mesh* _cube2;
-	NoHope::Mesh* _cube3;
-	NoHope::Mesh* _heavy;
-	NoHope::Mesh* _sammich;
+
 	//NoHope::Font* _font;
 
 
@@ -64,6 +60,10 @@ private:
 	NoHope::GameObject *player;
 	NoHope::Texture *_ground;
 	NoHope::GameObject *ground;
+	NoHope::Texture *_ground2;
+	NoHope::GameObject *ground2;
+	NoHope::Texture *_sky;
+	NoHope::GameObject *sky;
 	
 	b2World world;
 

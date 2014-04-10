@@ -18,6 +18,7 @@ namespace NoHope
 		void update(float dt);
 		bool isJumping;
 		int jumpTimeout;
+		Vec2 mov;
 
 	private:
 		void movement(float dt);

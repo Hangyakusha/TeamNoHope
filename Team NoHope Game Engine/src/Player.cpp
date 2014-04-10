@@ -10,6 +10,7 @@ Player::Player(int x, int y, int width, int height, Texture *texture, Shader *sh
 	rigidbody = new Rigidbody(world, Vec2(x,y), 0, Vec2(width, height), true, false);
 	//Vec2(texture->getSize().x*width,texture->getSize().y*height)
 	jumpTimeout = 0;
+	Vec2 mov = Vec2(x, y);
 }
 
 Player::~Player()
@@ -43,24 +44,26 @@ Player::~Player()
 
 void Player::update(float dt)
 {
-	//std::cout <<"r x: "<<rigidbody->getPosition().x << "r y: "<<rigidbody->getPosition().y << std::endl;
+	std::cout <<"r x: "<<rigidbody->getPosition().x << "r y: "<<rigidbody->getPosition().y << std::endl;
 	setRotationZ(rigidbody->getAngle());
 
 	movement(dt);
 	jumping(dt);
 	
-	if(rigidbody->getPosition().y < -1)
+	if(rigidbody->getPosition().y < -30)
 	{
 		setPosition(100,100);
 		rigidbody->setPosition(Vec2(100,100));
 		Vec2 t = rigidbody->getPosition();
+		mov.x = 0.f;
+		mov.y = 0.f;
 	}
 	else
 	{
 	setPosition(rigidbody->getPosition());
 	}	
 	
-	std::cout<<rigidbody->body->GetLinearVelocity().x << std::endl;
+	//std::cout<<rigidbody->body->GetLinearVelocity().x << std::endl;
 }
 
 
@@ -68,35 +71,55 @@ void Player::movement(float dt)
 {
 	float x = 0.f;
 	float y = 0.f;
-	Vec2 mov = Vec2(x, y);
 
+	
+	mov.x = 0.f;
+	mov.y = 0.f;
+
+	b2Vec2 vel = rigidbody->body->GetLinearVelocity();
+	float MAX_VEL = 5.f; //max 120 dunno why
+	//std::cout << vel.x << std::endl;
+
+	if(vel.x > MAX_VEL)
+	{
+		rigidbody->body->SetLinearVelocity(b2Vec2(MAX_VEL,vel.y));
+		std::cout << "dangerzone" << std::endl;
+	}
+
+	else if(vel.x < -MAX_VEL)
+	{
+		rigidbody->body->SetLinearVelocity(b2Vec2(-MAX_VEL,vel.y));
+		std::cout << "dangerzone" << std::endl;
+	}
+
+	//MOVEMENT
+
+	//W - Up
 	if(Window::getKey(87))
 	{
-		mov.x = 0.f;
-		mov.y = 1.f;
+		mov.x += 0.f;
+		mov.y += 1.f;
 	}
-
+	//A - Left
 	if(Window::getKey(65))
 	{
-		mov.x = -1.f;
-		mov.y = 0.f;	
+		mov.x += -1.f;
+		mov.y += 0.f;	
 	}
-
+	//S - Down
 	if(Window::getKey(83))
 	{	
-		mov.x = 0.f;
-		mov.y = -1.f;
+		mov.x += 0.f;
+		mov.y += -1.f;
 	}
-
+	//D - Right
 	if(Window::getKey(68))
 	{	
-		mov.x = 1.f;
-		mov.y = 0.f;
+		mov.x += 1.f;
+		mov.y += 0.f;
 	}
 
-	//rigidbody->SetLinearVelocity(mov); //vaiha parempaan
 	rigidbody->SetLinearImpulse(mov);
-	//std::cout<<
 }
 
 void Player::jumping(float dt)

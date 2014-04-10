@@ -40,7 +40,8 @@ void Game::init()
 
 	Texture* _player = Texture::load(Util::resourcePath + "ufo.tga");
 	Texture *_ground = Texture::load(Util::resourcePath + "testing.tga");
-
+	Texture *_ground2 = Texture::load(Util::resourcePath + "bg.tga");
+	Texture *_sky = Texture::load(Util::resourcePath + "bg.tga");
 	_shader = new Shader(Util::resourcePath + "Shaders/basic.vert", 
 							Util::resourcePath +  "Shaders/basic.frag");
 
@@ -49,8 +50,6 @@ void Game::init()
 	fps = 0;
 	_timer = 0.0f;
 	srand(time(NULL));
-
-	texture = Texture::load(Util::resourcePath + "green.tga");
 
 	_projection = Mat4(	2.0f / Graphics::screenWidth,	0,												0,		0,
 						0,								2.0f / Graphics::screenHeight,					0,		0,
@@ -69,16 +68,20 @@ void Game::init()
 							0,					0,					-(2*farZ*nearZ/(farZ-nearZ)),	0);
 
 
-	float asdf = Graphics::screenWidth;
 	player = new NoHope::Player(100,100, 64, 64, _player, _shader, &world);
 	/*player->setPosition(Graphics::screenWidth/2, Graphics::screenHeight/2);*/
 	//player->setPosition(300,300);
 	player->setProjectionMatrix(_projection);
 	
-	ground = new NoHope::Ground(0,0,1280,10, _ground, _shader, &world);
+	ground = new NoHope::Ground(0,0,400,10, _ground, _shader, &world);
 	ground->setProjectionMatrix(_projection);
 
+	ground2 = new NoHope::Ground(700,100,400,20, _ground2, _shader, &world);
+	ground2->setProjectionMatrix(_projection);
 	//_sound->play();
+
+	sky = new NoHope::Ground(0,300,2600,50, _sky, _shader, &world);
+	sky->setProjectionMatrix(_projection);
 	fpsTimer = 0.f;
 }
 
@@ -112,9 +115,9 @@ void Game::update(float dt)
 	const float timeStep = 1.f/60.f;
 	//if (_timer > timeStep)
 	//{
-	//	_timer = 0.f;
+		//_timer = 0.f;
 		world.Step(timeStep, 8, 3);
-	/*}*/
+	//}
 	player->update(dt);
 
 	//std::cout <<"p x: "<<player->getPosition().x << "p y: "<<player->getPosition().y << std::endl;
@@ -128,7 +131,9 @@ void Game::render()
 	renderTexture->clear(Color(0.95f, 0.95f, 0.95f));
 
 	renderTexture->draw(*ground);
+	renderTexture->draw(*ground2);
+	renderTexture->draw(*sky);
 	renderTexture->draw(*player);
-
+	
 	renderTexture->display();
 }
