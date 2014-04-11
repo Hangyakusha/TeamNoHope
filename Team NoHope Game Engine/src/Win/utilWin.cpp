@@ -33,6 +33,27 @@ std::string NoHope::Util::loadFile(const std::string& fileName)
 	return "";
 }
 
+GLubyte* NoHope::Util::loadBinary(const std::string &fileName, int &fileSize)
+{
+	std::ifstream file;
+	file.open(fileName, std::ios::binary|std::ios::ate);
+
+	// get filesize
+	fileSize = file.tellg();
+
+	file.seekg (0, std::ios::beg);
+
+	// make space for data
+	GLubyte* data = new GLubyte[fileSize];
+
+	// read to data
+	file.read((char*)data, fileSize);
+
+	file.close();
+
+	return data;
+}
+
 GLubyte* NoHope::Util::loadTGA(const std::string &fileName, tgaHeader &header)
 {
 	std::ifstream file;

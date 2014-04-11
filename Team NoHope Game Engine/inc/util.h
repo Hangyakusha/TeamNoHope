@@ -46,6 +46,7 @@ namespace NoHope
 
 		static std::string loadFile(const std::string& fileName);
 		static GLubyte* loadTGA(const std::string& fileName, tgaHeader &header);
+		static GLubyte* loadBinary(const std::string& fileName, int &fileSize);
 
 		#ifdef __ANDROID__
 

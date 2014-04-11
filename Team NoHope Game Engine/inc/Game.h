@@ -17,6 +17,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "Ground.h"
+#include "Text.h"
 
 class Game
 {
@@ -64,6 +65,7 @@ private:
 	NoHope::GameObject *ground2;
 	NoHope::Texture *_sky;
 	NoHope::GameObject *sky;
+	NoHope::Text *text;
 	
 	b2World world;
 

@@ -1,4 +1,8 @@
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+#include <string>
 
 #include "Debug.h"
 #include "Game.h"
@@ -7,14 +11,8 @@
 #include "math/Vec3.h"
 //#include "Sound.h"
 
-#include <stdlib.h>
-#include <time.h>
-#include <math.h>
-#include <string>
-
 #include <AL/al.h>
 #include <AL/alc.h>
-
 
 using namespace NoHope;
 
@@ -83,6 +81,9 @@ void Game::init()
 	sky = new NoHope::Ground(0,300,2600,50, _sky, _shader, &world);
 	sky->setProjectionMatrix(_projection);
 	fpsTimer = 0.f;
+
+	text = new NoHope::Text("Vera.ttf");
+	text->AddText(L"Derp");
 }
 
 void Game::addSprite(int x, int y, int dirX, int dirY)
@@ -119,7 +120,7 @@ void Game::update(float dt)
 		world.Step(timeStep, 8, 3);
 	//}
 	player->update(dt);
-
+	
 	//std::cout <<"p x: "<<player->getPosition().x << "p y: "<<player->getPosition().y << std::endl;
 	
 	fps++;
@@ -134,6 +135,7 @@ void Game::render()
 	renderTexture->draw(*ground2);
 	renderTexture->draw(*sky);
 	renderTexture->draw(*player);
-	
+	renderTexture->draw(*text);
 	renderTexture->display();
+	
 }
