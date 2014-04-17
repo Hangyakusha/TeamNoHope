@@ -37,6 +37,7 @@ uniform mat4 projection;
 attribute vec3 position;
 attribute vec2 texCoords;
 attribute vec4 color;
+
 void main()
 {
     gl_TexCoord[0].xy = texCoords.xy;

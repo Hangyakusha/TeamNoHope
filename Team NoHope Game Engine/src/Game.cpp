@@ -81,9 +81,17 @@ void Game::init()
 	sky = new NoHope::Ground(0,300,2600,50, _sky, _shader, &world);
 	sky->setProjectionMatrix(_projection);
 	fpsTimer = 0.f;
+	
+	_projection = Mat4(	2.0f / Graphics::screenWidth,	0,												0,		0,
+						0,								-2.0f / Graphics::screenHeight,					0,		0,
+						0,								0,												0,		0,
+						-1,								1,												0,		1);
 
-	text = new NoHope::Text("Vera.ttf");
-	text->AddText(L"Derp");
+	text = new NoHope::Text("Vera.ttf", 20);
+	text->SetText(L"FPS:");
+	text->AddText(L"\nthird row",Vec4(1,0,0,1));
+	text->setPosition(Graphics::screenWidth/2, Graphics::screenHeight/2);
+	text->setProjectionMatrix(_projection);
 }
 
 void Game::addSprite(int x, int y, int dirX, int dirY)
@@ -106,6 +114,11 @@ void Game::update(float dt)
 	//writeLog("dt %f\n",dt);
 	if(fpsTimer > 1)
 	{
+		text->SetText(L"FPS:" + std::to_wstring((long long)fps));
+		//long long intil hyvä
+		//unsigned long long unsigned int
+		//long double double tai float
+
 		writeLog("FPS:%d\n", fps);
 		fpsTimer = 0;
 		fps = 0;
