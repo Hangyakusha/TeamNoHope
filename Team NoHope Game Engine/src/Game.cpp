@@ -28,6 +28,15 @@ Game::~Game()
 {
     delete _graphics;
 	delete _shader;
+	delete player;
+	delete ground;
+	delete ground2;
+	delete ground3;
+	delete ground4;
+	delete sky;
+	delete text;
+	delete bg;
+
 }
 
 void Game::init()
@@ -35,11 +44,17 @@ void Game::init()
 	//3D
 	Shader* _shader3D = new Shader(Util::resourcePath + "Shaders/basicd.vert", 
 							Util::resourcePath +  "Shaders/basicd.frag");
+	if(player->getPosition
+	Texture* _player = Texture::load(Util::resourcePath + "Seppo.tga");
+	//Texture* _enemy = Texture::load(Util::resourcePath + "Char_1.tga");
+	Texture *_ground = Texture::load(Util::resourcePath + "pitkaplatta.tga");
+	Texture *_ground2 = Texture::load(Util::resourcePath + "pitkaplatta.tga");
+	Texture *_ground3 = Texture::load(Util::resourcePath + "pitkaplatta.tga");
+	Texture *_ground4 = Texture::load(Util::resourcePath + "pitkaplatta.tga");
+	Texture *_sky = Texture::load(Util::resourcePath + "pitkaplatta.tga");
+	Texture *_bg = Texture::load(Util::resourcePath + "Backgruund.tga");
 
-	Texture* _player = Texture::load(Util::resourcePath + "ufo.tga");
-	Texture *_ground = Texture::load(Util::resourcePath + "testing.tga");
-	Texture *_ground2 = Texture::load(Util::resourcePath + "bg.tga");
-	Texture *_sky = Texture::load(Util::resourcePath + "bg.tga");
+
 	_shader = new Shader(Util::resourcePath + "Shaders/basic.vert", 
 							Util::resourcePath +  "Shaders/basic.frag");
 
@@ -66,31 +81,43 @@ void Game::init()
 							0,					0,					-(2*farZ*nearZ/(farZ-nearZ)),	0);
 
 
-	player = new NoHope::Player(100,100, 64, 64, _player, _shader, &world);
+	player = new NoHope::Player(100,100, 64, 128, _player, _shader, &world);
 	/*player->setPosition(Graphics::screenWidth/2, Graphics::screenHeight/2);*/
 	//player->setPosition(300,300);
 	player->setProjectionMatrix(_projection);
 	
-	ground = new NoHope::Ground(0,0,400,10, _ground, _shader, &world);
+	ground = new NoHope::Ground(0,0,412,64, _ground, _shader, &world);
 	ground->setProjectionMatrix(_projection);
 
-	ground2 = new NoHope::Ground(700,100,400,20, _ground2, _shader, &world);
+	ground2 = new NoHope::Ground(700,100,412,64, _ground2, _shader, &world);
 	ground2->setProjectionMatrix(_projection);
 	//_sound->play();
 
-	sky = new NoHope::Ground(0,300,2600,50, _sky, _shader, &world);
+	ground3 = new NoHope::Ground(1200,300,412,64, _ground3, _shader, &world);
+	ground3->setProjectionMatrix(_projection);
+
+	ground4 = new NoHope::Ground(500,500,412,64, _ground4, _shader, &world);
+	ground4->setProjectionMatrix(_projection);
+
+	//enemy = new NoHope::Player(510,510,64,128, _ground4, _shader, &world);
+	//enemy->setProjectionMatrix(_projection);
+
+	sky = new NoHope::Ground(0,800,412,64, _sky, _shader, &world);
 	sky->setProjectionMatrix(_projection);
 	fpsTimer = 0.f;
 	
+	bg = new NoHope::SpriteEntity(Graphics::screenWidth/2, Graphics::screenHeight/2, 1280, 720, _bg, _shader);
+	bg->setProjectionMatrix(_projection);
+
 	_projection = Mat4(	2.0f / Graphics::screenWidth,	0,												0,		0,
 						0,								-2.0f / Graphics::screenHeight,					0,		0,
 						0,								0,												0,		0,
 						-1,								1,												0,		1);
 
-	text = new NoHope::Text("Vera.ttf", 20);
+	text = new NoHope::Text("Vera.ttf", 40);
 	text->SetText(L"FPS:");
-	text->AddText(L"\nthird row",Vec4(1,0,0,1));
-	text->setPosition(Graphics::screenWidth/2, Graphics::screenHeight/2);
+	//text->AddText(L"\nJEFFREY FTW",Vec4(1,0,0,1));
+	text->setPosition(10, 20);
 	text->setProjectionMatrix(_projection);
 }
 
@@ -143,12 +170,15 @@ void Game::render()
 {
 	_graphics->clear(0.2f, 0.2f, 0.2f);
 	renderTexture->clear(Color(0.95f, 0.95f, 0.95f));
-
+	renderTexture->draw(*bg);
 	renderTexture->draw(*ground);
 	renderTexture->draw(*ground2);
+	renderTexture->draw(*ground3);
+	renderTexture->draw(*ground4);
 	renderTexture->draw(*sky);
 	renderTexture->draw(*player);
 	renderTexture->draw(*text);
+	//renderTexture->draw(*enemy);
 	renderTexture->display();
 	
 }

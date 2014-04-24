@@ -59,13 +59,27 @@ private:
 
 	NoHope::Texture *_player;
 	NoHope::GameObject *player;
+
+	NoHope::Texture *_enemy;
+	NoHope::GameObject *enemy;
+
 	NoHope::Texture *_ground;
 	NoHope::GameObject *ground;
+
 	NoHope::Texture *_ground2;
 	NoHope::GameObject *ground2;
+
+	NoHope::Texture *_ground3;
+	NoHope::GameObject *ground3;
+
+	NoHope::Texture *_ground4;
+	NoHope::GameObject *ground4;
+
 	NoHope::Texture *_sky;
 	NoHope::GameObject *sky;
+
 	NoHope::Text *text;
+	NoHope::SpriteEntity *bg;
 	
 	b2World world;
 

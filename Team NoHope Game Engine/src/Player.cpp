@@ -44,7 +44,7 @@ Player::~Player()
 
 void Player::update(float dt)
 {
-	std::cout <<"r x: "<<rigidbody->getPosition().x << "r y: "<<rigidbody->getPosition().y << std::endl;
+	//std::cout <<"r x: "<<rigidbody->getPosition().x << "r y: "<<rigidbody->getPosition().y << std::endl;
 	setRotationZ(rigidbody->getAngle());
 
 	movement(dt);
@@ -83,13 +83,13 @@ void Player::movement(float dt)
 	if(vel.x > MAX_VEL)
 	{
 		rigidbody->body->SetLinearVelocity(b2Vec2(MAX_VEL,vel.y));
-		std::cout << "dangerzone" << std::endl;
+		//std::cout << "dangerzone" << std::endl;
 	}
 
 	else if(vel.x < -MAX_VEL)
 	{
 		rigidbody->body->SetLinearVelocity(b2Vec2(-MAX_VEL,vel.y));
-		std::cout << "dangerzone" << std::endl;
+		//std::cout << "dangerzone" << std::endl;
 	}
 
 	//MOVEMENT
@@ -98,24 +98,24 @@ void Player::movement(float dt)
 	if(Window::getKey(87))
 	{
 		mov.x += 0.f;
-		mov.y += 1.f;
+		mov.y += 2.f;
 	}
 	//A - Left
 	if(Window::getKey(65))
 	{
-		mov.x += -1.f;
+		mov.x += -2.f;
 		mov.y += 0.f;	
 	}
 	//S - Down
 	if(Window::getKey(83))
 	{	
 		mov.x += 0.f;
-		mov.y += -1.f;
+		mov.y += -2.f;
 	}
 	//D - Right
 	if(Window::getKey(68))
 	{	
-		mov.x += 1.f;
+		mov.x += 2.f;
 		mov.y += 0.f;
 	}
 
@@ -141,7 +141,7 @@ void Player::jumping(float dt)
 	if(Window::getKey(32) && jumpTimeout == 0) //Space
 	{
 		paljon.x = 0.f;
-		paljon.y = 40.f;
+		paljon.y = 80.f;
 		isJumping = true;
 		jumpTimeout = 65;
 	/*	up.x = 50.f;
