@@ -1,48 +1,23 @@
-#include <Player.h>
-#include <iostream>
+#include <Enemy.h>
 
 using namespace NoHope;
 
-Player::Player(int x, int y, int width, int height, Texture *texture, Shader *shader, b2World* world)
+Enemy::Enemy(int x, int y, int width, int height, Texture *texture, Shader *shader, b2World* world)
 	: GameObject(x,y,width,height,texture,shader,world)
 {
-	delete rigidbody;
+
 	rigidbody = new Rigidbody(world, Vec2(x,y), 0, Vec2(width, height), true, false);
 	//Vec2(texture->getSize().x*width,texture->getSize().y*height)
 	jumpTimeout = 0;
-	Vec2 mov = Vec2(x, y);
+	Vec2 movs = Vec2(x, y);
 }
 
-Player::~Player()
+Enemy::~Enemy()
 {
 
 }
-//
-//void Player::Init(Vec2 position, float angle, Vec2 size)
-//{
-//	b2BodyDef myBodyDef;
-//	myBodyDef.type = b2_dynamicBody; //this will be a dynamic body
-//
-//	position = position / PIXELS_PER_METER;
-//	size = size / PIXELS_PER_METER;
-//
-//	myBodyDef.position.Set(position.x, position.y); //set the starting position
-//	myBodyDef.angle = angle; //set the starting angle
-//
-//	dynamicBody = m_world->CreateBody(&myBodyDef); 
-//
-//	b2PolygonShape dynamicBox;
-//
-//	dynamicBox.SetAsBox(size.x/2,size.y/2);
-//  
-//	b2FixtureDef boxFixtureDef;
-//	boxFixtureDef.shape = &dynamicBox;
-//	boxFixtureDef.density = 10;
-//
-//	dynamicBody->CreateFixture(&boxFixtureDef);
-//}
 
-void Player::update(float dt)
+void Enemy::update(float dt)
 {
 	//std::cout <<"r x: "<<rigidbody->getPosition().x << "r y: "<<rigidbody->getPosition().y << std::endl;
 	setRotationZ(rigidbody->getAngle());
@@ -55,8 +30,8 @@ void Player::update(float dt)
 		setPosition(100,100);
 		rigidbody->setPosition(Vec2(100,100));
 		Vec2 t = rigidbody->getPosition();
-		mov.x = 0.f;
-		mov.y = 0.f;
+		movs.x = 0.f;
+		movs.y = 0.f;
 	}
 	else
 	{
@@ -67,67 +42,67 @@ void Player::update(float dt)
 }
 
 
-void Player::movement(float dt)
+void Enemy::movement(float dt)
 {
 	float x = 0.f;
 	float y = 0.f;
 
-	mov.x = 0.f;
-	mov.y = 0.f;
+	movs.x = 0.f;
+	movs.y = 0.f;
 
-	b2Vec2 vel = rigidbody->body->GetLinearVelocity();
+	b2Vec2 vels = rigidbody->body->GetLinearVelocity();
 	float MAX_VEL = 5.f; //max 120 dunno why
 	//std::cout << vel.x << std::endl;
 
-	if(vel.x > MAX_VEL)
+	if(vels.x > MAX_VEL)
 	{
-		rigidbody->body->SetLinearVelocity(b2Vec2(MAX_VEL,vel.y));
+		rigidbody->body->SetLinearVelocity(b2Vec2(MAX_VEL,vels.y));
 		//std::cout << "dangerzone" << std::endl;
 	}
 
-	else if(vel.x < -MAX_VEL)
+	else if(vels.x < -MAX_VEL)
 	{
-		rigidbody->body->SetLinearVelocity(b2Vec2(-MAX_VEL,vel.y));
+		rigidbody->body->SetLinearVelocity(b2Vec2(-MAX_VEL,vels.y));
 		//std::cout << "dangerzone" << std::endl;
 	}
 
 	//MOVEMENT
 
 	//W - Up
-	if(Window::getKey(87))
+	if(Window::getKey(265))
 	{
-		mov.x += 0.f;
-		mov.y += 2.f;
+		movs.x += 0.f;
+		movs.y += 2.f;
 		setScale(Vec3(1,-1,1));
 	}
 	//A - Left
-	if(Window::getKey(65))
+	if(Window::getKey(263))
 	{
-		mov.x += -2.f;
-		mov.y += 0.f;
+		movs.x += -2.f;
+		movs.y += 0.f;
 		setScale(Vec3(-1,1,1));
 	}
 	//S - Down
-	if(Window::getKey(83))
+	if(Window::getKey(264))
 	{	
-		mov.x += 0.f;
-		mov.y += -2.f;
+		movs.x += 0.f;
+		movs.y += -2.f;
 		setScale(Vec3(1,1,1));
 		
 	}
 	//D - Right
-	if(Window::getKey(68))
+	if(Window::getKey(262))
 	{	
-		mov.x += 2.f;
-		mov.y += 0.f;
+		movs.x += 2.f;
+		movs.y += 0.f;
 		setScale(Vec3(1,1,1));
 		
 	}
 
-	rigidbody->SetLinearImpulse(mov);
+	rigidbody->SetLinearImpulse(movs);
 }
 
-void Player::jumping(float dt)
+void Enemy::jumping(float dt)
 {
 	isJumping = false;
 	if (jumpTimeout >= 1)
@@ -143,7 +118,7 @@ void Player::jumping(float dt)
 
 	Vec2 paljon = Vec2(px, py);
 
-	if(Window::getKey(32) && jumpTimeout == 0) //Space
+	if(Window::getKey(257) && jumpTimeout == 0) //Space
 	{
 		paljon.x = 0.f;
 		paljon.y = 80.f;
@@ -168,5 +143,3 @@ void Player::jumping(float dt)
 	//std::cout<<jumpTimeout<<std::endl;
 
 }
-
-//velocity

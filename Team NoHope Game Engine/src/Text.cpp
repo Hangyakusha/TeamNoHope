@@ -37,7 +37,7 @@ Text::Text(std::string fontName, const float fontSize)
 	startIndexes.push_back(0);
 	_indexData = new IndexData(startIndexes,false);
 
-	SetText(L"text Object");
+	SetText(L" ");
 }
 
 Text::~Text()

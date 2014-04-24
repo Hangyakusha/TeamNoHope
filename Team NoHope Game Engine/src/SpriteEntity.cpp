@@ -95,3 +95,6 @@ void SpriteEntity::draw(Camera &_camera)
 void SpriteEntity::update(float dt)
 {
 }
+
+//animaatio tarvitsee tekstuurille textuuri coordit, mistä napataan clipit
+//kts uththtuty engineä

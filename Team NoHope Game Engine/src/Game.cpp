@@ -22,6 +22,9 @@ Game::Game(int width, int height)
 	_graphics = new Graphics(width, height);
 	init();
 	writeLog("WIDTH: %d, HEIGHT: %d", Graphics::screenWidth, Graphics::screenHeight);
+
+	issco = 0;
+	sepsco = 0;
 }
 
 Game::~Game()
@@ -46,13 +49,9 @@ void Game::init()
 							Util::resourcePath +  "Shaders/basicd.frag");
 	
 	
-	//if(Player::playerDirection == false)
-	//{
-	Texture* _player = Texture::load(Util::resourcePath + "SeppoBack.tga");
-	//}
-	/*Texture* _player = Texture::load(Util::resourcePath + "Seppo.tga");*/
-	
-	//Texture* _enemy = Texture::load(Util::resourcePath + "Char_1.tga");
+
+	Texture* _player = Texture::load(Util::resourcePath + "Seppo.tga");	
+	Texture* _enemy = Texture::load(Util::resourcePath + "Ismo.tga");
 	Texture *_ground = Texture::load(Util::resourcePath + "pitkaplatta.tga");
 	Texture *_ground2 = Texture::load(Util::resourcePath + "pitkaplatta.tga");
 	Texture *_ground3 = Texture::load(Util::resourcePath + "pitkaplatta.tga");
@@ -92,6 +91,9 @@ void Game::init()
 	//player->setPosition(300,300);
 	player->setProjectionMatrix(_projection);
 	
+	enemy = new NoHope::Enemy(371,598,64,128, _enemy, _shader, &world);
+	enemy->setProjectionMatrix(_projection);
+
 	ground = new NoHope::Ground(0,0,412,64, _ground, _shader, &world);
 	ground->setProjectionMatrix(_projection);
 
@@ -105,14 +107,13 @@ void Game::init()
 	ground4 = new NoHope::Ground(500,500,412,64, _ground4, _shader, &world);
 	ground4->setProjectionMatrix(_projection);
 
-	//enemy = new NoHope::Player(510,510,64,128, _ground4, _shader, &world);
-	//enemy->setProjectionMatrix(_projection);
+
 
 	sky = new NoHope::Ground(0,800,412,64, _sky, _shader, &world);
 	sky->setProjectionMatrix(_projection);
 	fpsTimer = 0.f;
 	
-	bg = new NoHope::SpriteEntity(Graphics::screenWidth/2, Graphics::screenHeight/2, 1280, 720, _bg, _shader);
+	bg = new NoHope::SpriteEntity(0,0, Graphics::screenWidth*3, Graphics::screenHeight*3, _bg, _shader);
 	bg->setProjectionMatrix(_projection);
 
 	_projection = Mat4(	2.0f / Graphics::screenWidth,	0,												0,		0,
@@ -122,9 +123,26 @@ void Game::init()
 
 	text = new NoHope::Text("Vera.ttf", 40);
 	text->SetText(L"FPS:");
-	text->AddText(L"\nJEFFREY FTW",Vec4(1,0,0,1));
+	//text->AddText(L"\nJEFFREY FTW",Vec4(1,0,0,1));
 	text->setPosition(10, 20);
 	text->setProjectionMatrix(_projection);
+
+	SeppoText = new NoHope::Text("Vera.ttf", 20);
+	SeppoText->SetText(L"Seppo Score:");
+
+	SeppoText->setPosition(500,20);
+	SeppoText->setProjectionMatrix(_projection);
+
+	IsmoText = new NoHope::Text("Vera.ttf", 20);
+	IsmoText->SetText(L"Ismo Score:");	
+	IsmoText->setPosition(800,20);
+	IsmoText->setProjectionMatrix(_projection);
+
+	WinText = new NoHope::Text("Vera.ttf", 20);
+
+	WinText->setPosition(Graphics::screenWidth/2, Graphics::screenHeight/4);
+	WinText->setProjectionMatrix(_projection);
+
 }
 
 void Game::addSprite(int x, int y, int dirX, int dirY)
@@ -156,6 +174,32 @@ void Game::update(float dt)
 		fpsTimer = 0;
 		fps = 0;
 	}
+	SeppoText->SetText(L"Seppo Score:" + std::to_wstring((long long)sepsco));
+
+
+	IsmoText->SetText(L"Ismo Score:" + std::to_wstring((long long)issco));
+	
+	if(issco > 3)
+	{
+		WinText->SetText(L"ISMO WINS",Vec4(0,0,0,1));
+		issco = 0;
+		sepsco = 0;
+	}
+	if(sepsco > 3)		
+	{
+		
+		WinText->SetText(L"SEPPO WINS",Vec4(0,0,0,1));
+		sepsco = 0;
+		issco = 0;
+	}
+
+	if(sepsco > 0 || issco > 0)
+	{
+		
+		WinText->SetText(L" ",Vec4(0,0,0,1));
+		sepsco = 0;
+		issco = 0;
+	}
 
 	_shader->setUniform("time", _timer);
 	
@@ -166,25 +210,46 @@ void Game::update(float dt)
 		world.Step(timeStep, 8, 3);
 	//}
 	player->update(dt);
+	enemy->update(dt);
 	
 	//std::cout <<"p x: "<<player->getPosition().x << "p y: "<<player->getPosition().y << std::endl;
 	_camera.setCameraPosition(player->getPosition().x - 640.0f, player->getPosition().y - 360 );
 	fps++;
+
+	if(player->getPosition().y == 100 && player->getPosition().x == 100 )
+	{
+		issco++;
+	}
+
+	if(enemy->getPosition().y == 100 && enemy->getPosition().x == 100)
+	{
+		sepsco++;
+	}
+
 }
 
 void Game::render() 
 {
 	_graphics->clear(0.2f, 0.2f, 0.2f);
 	renderTexture->clear(Color(0.95f, 0.95f, 0.95f));
-	renderTexture->draw(*bg,_camera);
-	renderTexture->draw(*ground,_camera);
-	renderTexture->draw(*ground2,_camera);
-	renderTexture->draw(*ground3,_camera);
-	renderTexture->draw(*ground4,_camera);
-	renderTexture->draw(*sky,_camera);
-	renderTexture->draw(*player,_camera);
-	renderTexture->draw(*text,_camera);
-	/*renderTexture->draw(*enemy);*/
+
+	renderTexture->draw(*bg, _camera);
+
+	renderTexture->draw(*ground, _camera);
+	renderTexture->draw(*ground2, _camera);
+	renderTexture->draw(*ground3, _camera);
+	renderTexture->draw(*ground4, _camera);
+
+	renderTexture->draw(*sky, _camera);
+
+	renderTexture->draw(*player, _camera);
+	renderTexture->draw(*enemy, _camera);
+
+	renderTexture->draw(*text, _camera);
+	renderTexture->draw(*SeppoText, _camera);
+	renderTexture->draw(*IsmoText, _camera);
+	renderTexture->draw(*WinText, _camera);
+
 	renderTexture->display();
 	
 }

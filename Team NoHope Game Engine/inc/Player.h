@@ -21,6 +21,7 @@ namespace NoHope
 		Vec2 mov;
 		//bool playerDirection;
 
+
 	private:
 		void movement(float dt);
 		void jumping(float dt);

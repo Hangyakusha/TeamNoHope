@@ -12,13 +12,14 @@
 #include "math/Mat4.h"
 //#include "Scene.h"
 //#include "Sound.h"
-#include "Mesh.h"
+#include <Mesh.h>
 //#include "Font.h"
-#include "GameObject.h"
-#include "Player.h"
-#include "Ground.h"
-#include "Text.h"
-#include "Camera.h"
+#include <GameObject.h>
+#include <Player.h>
+#include <Enemy.h>
+#include <Ground.h>
+#include <Text.h>
+#include <Camera.h>
 
 class Game
 {
@@ -33,8 +34,9 @@ public:
 	void render();
 	void addSprite(int x, int y, int dirX, int dirY);
 
+	int issco;
+	int sepsco;
 	
-
 	struct Sprite
 	{
 		NoHope::SpriteEntity* entity;
@@ -80,12 +82,16 @@ private:
 	NoHope::GameObject *sky;
 
 	NoHope::Text *text;
+	NoHope::Text *SeppoText;
+	NoHope::Text *IsmoText;
+	NoHope::Text *WinText;
+
 	NoHope::SpriteEntity *bg;
 	
 	NoHope::Camera _camera;
 	b2World world;
 
-
+	
 	float _timer;
 	float fpsTimer;
 	int fps;
