@@ -10,6 +10,7 @@
 #include "Shader.h"
 #include "VertexData.h"
 #include "Color.h"
+#include "Camera.h"
 
 namespace NoHope
 {
@@ -20,7 +21,7 @@ namespace NoHope
 		RenderTexture();
 		~RenderTexture();
 
-		void draw(Entity& entity);
+		void draw(Entity& entity, Camera &_camera);
 		void display();
 		void clear(const Color& color);
 

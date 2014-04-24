@@ -3,22 +3,25 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "Entity.h"
+#include "math\Mat4.h"
 
 namespace NoHope
 {
-	class Camera : public Entity
+	class Camera
 	{
 	public:
 
 		Camera();
 		~Camera();
 
-		virtual void draw();
-		virtual void update(float dt);
+		/*void draw();*/
+		/*void update(float dt);*/
+		void setCameraPosition(float x,float y);
+		Mat4 cameraViewMatrix();
+		Mat4 view;
 
 	private:
-
+		/*float x,y;*/
 		Camera(Camera&);
 
 	};

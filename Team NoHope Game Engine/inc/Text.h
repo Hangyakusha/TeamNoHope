@@ -35,7 +35,7 @@ namespace NoHope
 
 		
 		virtual void update(float dt){}
-		virtual void draw();
+		virtual void draw(Camera &_camera);
 		
 	private:
 

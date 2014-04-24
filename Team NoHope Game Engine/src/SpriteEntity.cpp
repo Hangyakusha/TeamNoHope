@@ -67,7 +67,7 @@ void SpriteEntity::setColor(const Color& color)
 	}
 }
 
-void SpriteEntity::draw()
+void SpriteEntity::draw(Camera &_camera)
 {
 	glUseProgram(_shader->program());
 
@@ -75,6 +75,7 @@ void SpriteEntity::draw()
 		_texture->bind(_shader);
 
 	_shader->setUniform("projection", _projectionMatrix.data());
+	_shader->setUniform("view",_camera.cameraViewMatrix().data());
 	_shader->setUniform("model", getMatrix().data());
 	
 	static const int stride = sizeof(GLfloat)*8;

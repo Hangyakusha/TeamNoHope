@@ -24,7 +24,7 @@ namespace NoHope
 		void setColor(const Color& color);
 		void setVertexData(VertexData* vertexData);
 
-		virtual void draw();
+		virtual void draw(Camera &_camera);
 		virtual void update(float dt);
 	
 	private:

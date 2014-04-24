@@ -92,10 +92,10 @@ void RenderTexture::init()
 	clear(Color(0, 0, 0));
 }
 
-void RenderTexture::draw(Entity& entity)
+void RenderTexture::draw(Entity& entity, Camera &_camera)
 {
 	bind();
-	entity.draw();
+	entity.draw(_camera);
 
 	/*_data.insert(_data.end(), entity._vertexData->getData().begin(), entity._vertexData->getData().end());
 	_batchTexture = entity._texture;

@@ -152,7 +152,7 @@ void Text::AddText(const std::wstring& text, Vec4 color)
 }
 
 
-void Text::draw()
+void Text::draw(Camera &_camera)
 {
 	
 	glUseProgram(_shader->program());

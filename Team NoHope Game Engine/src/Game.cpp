@@ -44,8 +44,14 @@ void Game::init()
 	//3D
 	Shader* _shader3D = new Shader(Util::resourcePath + "Shaders/basicd.vert", 
 							Util::resourcePath +  "Shaders/basicd.frag");
-	if(player->getPosition
-	Texture* _player = Texture::load(Util::resourcePath + "Seppo.tga");
+	
+	
+	//if(Player::playerDirection == false)
+	//{
+	Texture* _player = Texture::load(Util::resourcePath + "SeppoBack.tga");
+	//}
+	/*Texture* _player = Texture::load(Util::resourcePath + "Seppo.tga");*/
+	
 	//Texture* _enemy = Texture::load(Util::resourcePath + "Char_1.tga");
 	Texture *_ground = Texture::load(Util::resourcePath + "pitkaplatta.tga");
 	Texture *_ground2 = Texture::load(Util::resourcePath + "pitkaplatta.tga");
@@ -116,7 +122,7 @@ void Game::init()
 
 	text = new NoHope::Text("Vera.ttf", 40);
 	text->SetText(L"FPS:");
-	//text->AddText(L"\nJEFFREY FTW",Vec4(1,0,0,1));
+	text->AddText(L"\nJEFFREY FTW",Vec4(1,0,0,1));
 	text->setPosition(10, 20);
 	text->setProjectionMatrix(_projection);
 }
@@ -162,7 +168,7 @@ void Game::update(float dt)
 	player->update(dt);
 	
 	//std::cout <<"p x: "<<player->getPosition().x << "p y: "<<player->getPosition().y << std::endl;
-	
+	_camera.setCameraPosition(player->getPosition().x - 640.0f, player->getPosition().y - 360 );
 	fps++;
 }
 
@@ -170,15 +176,15 @@ void Game::render()
 {
 	_graphics->clear(0.2f, 0.2f, 0.2f);
 	renderTexture->clear(Color(0.95f, 0.95f, 0.95f));
-	renderTexture->draw(*bg);
-	renderTexture->draw(*ground);
-	renderTexture->draw(*ground2);
-	renderTexture->draw(*ground3);
-	renderTexture->draw(*ground4);
-	renderTexture->draw(*sky);
-	renderTexture->draw(*player);
-	renderTexture->draw(*text);
-	//renderTexture->draw(*enemy);
+	renderTexture->draw(*bg,_camera);
+	renderTexture->draw(*ground,_camera);
+	renderTexture->draw(*ground2,_camera);
+	renderTexture->draw(*ground3,_camera);
+	renderTexture->draw(*ground4,_camera);
+	renderTexture->draw(*sky,_camera);
+	renderTexture->draw(*player,_camera);
+	renderTexture->draw(*text,_camera);
+	/*renderTexture->draw(*enemy);*/
 	renderTexture->display();
 	
 }

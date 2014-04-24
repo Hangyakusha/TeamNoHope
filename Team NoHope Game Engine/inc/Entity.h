@@ -6,6 +6,7 @@
 #include <math/Vec3.h>
 #include <math/Vec2.h>
 #include <math/Mat4.h>
+#include "Camera.h"
 
 namespace NoHope
 {
@@ -17,7 +18,7 @@ namespace NoHope
 		virtual ~Entity();
 
 		virtual void update(float dt) = 0;
-		virtual void draw() = 0;
+		virtual void draw(Camera &_camera) = 0;
 
 		void setPosition(const Vec3& position);
 		void setPosition(const Vec2& position);

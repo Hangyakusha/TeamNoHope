@@ -35,7 +35,7 @@ void Mesh::init(std::string filePath)
 	size = vertices.size();//indices.size();
 
 	//this->setPosition(5, 0, 0);
-	_camera->setPosition(0, 0, -10);
+	/*_camera->setPosition(0, 0, -10);*/
 
 	std::vector<GLfloat> data(vertices.size()*sizeof(GLfloat)*8);
 
@@ -59,7 +59,7 @@ void Mesh::init(std::string filePath)
 	//_indexData = new IndexData(indices);
 }
 
-void Mesh::draw()
+void Mesh::draw(Camera &_camera)
 {
 	//haxxing
 	/*if(Window::getKey('A'))
@@ -78,24 +78,24 @@ void Mesh::draw()
 	//	_camera->setRotation(_camera->getRotation() - 0.1f);
 	//
 
-	if(_texture)
-		_texture->bind(_shader);
+	//if(_texture)
+	//	_texture->bind(_shader);
 
-	glUseProgram(_shader->program());
+	//glUseProgram(_shader->program());
 
-	_shader->setUniform("view", _camera->getMatrix().data());
-	_shader->setUniform("model", getMatrix().data());
-	_shader->setUniform("projection", _projectionMatrix.data());
+	//_shader->setUniform("view", _camera->getMatrix().data());
+	//_shader->setUniform("model", getMatrix().data());
+	//_shader->setUniform("projection", _projectionMatrix.data());
 
-	//_indexData->bindBuffers();
-	_vertexData->bindBuffers();
+	////_indexData->bindBuffers();
+	//_vertexData->bindBuffers();
 
-	_vertexData->setAttribute(glGetAttribLocation(_shader->program(), "position"), 3, sizeof(GLfloat)*8, 0);
-	_vertexData->setAttribute(glGetAttribLocation(_shader->program(), "texCoords"), 2, sizeof(GLfloat)*8, sizeof(GLfloat)*3);
+	//_vertexData->setAttribute(glGetAttribLocation(_shader->program(), "position"), 3, sizeof(GLfloat)*8, 0);
+	//_vertexData->setAttribute(glGetAttribLocation(_shader->program(), "texCoords"), 2, sizeof(GLfloat)*8, sizeof(GLfloat)*3);
 
-	//glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_SHORT, 0);
-	glDrawArrays(GL_TRIANGLES, 0, size);
-	checkGlError("glDrawElements");
+	////glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_SHORT, 0);
+	//glDrawArrays(GL_TRIANGLES, 0, size);
+	//checkGlError("glDrawElements");
 }
 
 void Mesh::update(float dt)

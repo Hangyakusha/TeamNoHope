@@ -10,7 +10,7 @@ varying vec2 finalTexCoords;
 
 void main()
 {
-  gl_Position = projection * model * vec4(position, 1.0);
+  gl_Position = projection *view* model * vec4(position, 1.0);
   color = position;
   finalTexCoords = texCoords;
 }

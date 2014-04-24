@@ -23,7 +23,7 @@ namespace NoHope
 		Mesh(Shader* shader, std::string filePath, Texture* texture);
 		~Mesh();
 
-		virtual void draw();
+		virtual void draw(Camera &_camera);
 		virtual void update(float dt);
 
 	private:

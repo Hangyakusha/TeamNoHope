@@ -111,6 +111,7 @@ void Player::movement(float dt)
 	{	
 		mov.x += 0.f;
 		mov.y += -2.f;
+		
 	}
 	//D - Right
 	if(Window::getKey(68))

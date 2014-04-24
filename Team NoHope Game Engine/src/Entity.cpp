@@ -42,7 +42,7 @@ void Entity::setPosition(const Vec2& position)
 void Entity::setScale(const Vec3& scale)
 {
 	_scale = scale;
-	_scaleMatrix = NoHope::Mat4::createScale(scale.x);
+	_scaleMatrix = NoHope::Mat4::createScale(scale);
 	_recalculateMatrix = true;
 }
 

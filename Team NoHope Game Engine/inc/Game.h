@@ -18,6 +18,7 @@
 #include "Player.h"
 #include "Ground.h"
 #include "Text.h"
+#include "Camera.h"
 
 class Game
 {
@@ -81,6 +82,7 @@ private:
 	NoHope::Text *text;
 	NoHope::SpriteEntity *bg;
 	
+	NoHope::Camera _camera;
 	b2World world;
 
 

@@ -19,6 +19,7 @@ namespace NoHope
 		bool isJumping;
 		int jumpTimeout;
 		Vec2 mov;
+		//bool playerDirection;
 
 	private:
 		void movement(float dt);
